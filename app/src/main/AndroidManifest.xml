@@ -9,6 +9,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".ui.BottomNavActivity">
+        </activity>
+        <activity android:name=".ui.DrawerNavActivity">
+        </activity>
         <activity android:name=".dashboard.DashboardActivity">
         </activity>
         <activity android:name=".MainActivity">

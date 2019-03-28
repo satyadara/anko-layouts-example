@@ -1,7 +1,9 @@
 package com.satyadara.ankolayouts
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.satyadara.ankolayouts.dashboard.DashboardActivity
 import org.jetbrains.anko.AnkoComponent
 import org.jetbrains.anko.AnkoContext
 import org.jetbrains.anko.button
@@ -13,6 +15,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MainActivityUI().setContentView(this)
+
+        startActivity(Intent(this, DashboardActivity::class.java))
     }
 }
 

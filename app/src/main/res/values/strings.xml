@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Anko Layouts</string>
+    <string name="nav_drawer">Navigation Drawer</string>
+    <string name="close">CLOSE</string>
+    <string name="open">OPEN</string>
+    <string name="bottom_nav">BOTTOM NAVIGATION</string>
 </resources>
