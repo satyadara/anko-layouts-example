@@ -1,4 +1,4 @@
-package com.satyadara.ankolayouts.ui
+package com.satyadara.ankolayouts.ui.navigation
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -29,8 +29,8 @@ class DrawerNavActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         val toggle = ActionBarDrawerToggle(
             this, ui.drawer, ui.toolbar, R.string.open, R.string.close
         )
-        ui.drawer.setDrawerListener(toggle)
-        toggle.syncState()
+        ui.drawer.addDrawerListener(toggle)
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

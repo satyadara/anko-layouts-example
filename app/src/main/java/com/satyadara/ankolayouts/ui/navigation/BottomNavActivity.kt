@@ -1,4 +1,4 @@
-package com.satyadara.ankolayouts.ui
+package com.satyadara.ankolayouts.ui.navigation
 
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.TextView
 import com.satyadara.ankolayouts.R
+import com.satyadara.ankolayouts.helper.BottomNavigationViewHelper
 import org.jetbrains.anko.*
 import org.jetbrains.anko.constraint.layout.constraintLayout
 import org.jetbrains.anko.design.bottomNavigationView
@@ -20,6 +21,9 @@ class BottomNavActivity : AppCompatActivity(), BottomNavigationView.OnNavigation
         ui.setContentView(this)
 
         ui.bottomNav.inflateMenu(R.menu.activity_main_drawer)
+
+        // Remove code below if you want enable shift mode
+        BottomNavigationViewHelper.disableShiftMode(ui.bottomNav)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
