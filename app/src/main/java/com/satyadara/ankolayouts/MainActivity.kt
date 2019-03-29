@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         MainActivityUI().setContentView(this)
 
         startActivity(Intent(this, DashboardActivity::class.java))
+        finish()
     }
 }
 

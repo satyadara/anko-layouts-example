@@ -2,16 +2,21 @@ package com.satyadara.ankolayouts.ui.navigation
 
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
-import android.support.constraint.ConstraintLayout.LayoutParams.PARENT_ID
+import android.support.constraint.ConstraintSet.PARENT_ID
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import android.widget.TextView
+import android.view.View
+import android.widget.FrameLayout
 import com.satyadara.ankolayouts.R
 import com.satyadara.ankolayouts.helper.BottomNavigationViewHelper
+import com.satyadara.ankolayouts.ui.fragment.BlankFragment
 import org.jetbrains.anko.*
+import org.jetbrains.anko.constraint.layout.ConstraintSetBuilder.Side.*
+import org.jetbrains.anko.constraint.layout.applyConstraintSet
 import org.jetbrains.anko.constraint.layout.constraintLayout
 import org.jetbrains.anko.design.bottomNavigationView
+import org.jetbrains.anko.design.snackbar
 
 class BottomNavActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     lateinit var ui: BottomNavUI
@@ -28,11 +33,11 @@ class BottomNavActivity : AppCompatActivity(), BottomNavigationView.OnNavigation
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.item1 -> ui.textView.text = "item1"
-            R.id.item2 -> ui.textView.text = "item2"
-            R.id.item3 -> ui.textView.text = "item3"
-            R.id.item4 -> ui.textView.text = "item4"
-            R.id.item5 -> ui.textView.text = "item5"
+            R.id.item1 -> supportFragmentManager.beginTransaction().replace(ui.fragment.id, BlankFragment()).commit()
+            R.id.item2 -> supportFragmentManager.beginTransaction().replace(ui.fragment.id, BlankFragment()).commit()
+            R.id.item3 -> supportFragmentManager.beginTransaction().replace(ui.fragment.id, BlankFragment()).commit()
+            R.id.item4 -> supportFragmentManager.beginTransaction().replace(ui.fragment.id, BlankFragment()).commit()
+            R.id.item5 -> supportFragmentManager.beginTransaction().replace(ui.fragment.id, BlankFragment()).commit()
         }
         return true
     }
@@ -41,22 +46,36 @@ class BottomNavActivity : AppCompatActivity(), BottomNavigationView.OnNavigation
 class BottomNavUI : AnkoComponent<BottomNavActivity> {
     lateinit var layout: ConstraintLayout
     lateinit var bottomNav: BottomNavigationView
-    lateinit var textView: TextView
+    lateinit var fragment: FrameLayout
     override fun createView(ui: AnkoContext<BottomNavActivity>) = ui.apply {
         layout = constraintLayout {
-            textView = textView("Hello World!").lparams(wrapContent, wrapContent) {
-                topToTop = PARENT_ID
-                leftToLeft = PARENT_ID
-                rightToRight = PARENT_ID
-                bottomToBottom = PARENT_ID
+            id = View.generateViewId()
+            fragment = frameLayout() {
+                id = View.generateViewId()
             }
             bottomNav = bottomNavigationView {
+                id = View.generateViewId()
                 backgroundColor = R.color.primary_material_dark
                 setOnNavigationItemSelectedListener(ui.owner)
-            }.lparams(matchParent, wrapContent) {
-                bottomToBottom = PARENT_ID
-                leftToLeft = PARENT_ID
-                rightToRight = PARENT_ID
+            }
+
+            applyConstraintSet {
+                fragment {
+                    connect(
+                        TOP to TOP of PARENT_ID,
+                        LEFT to LEFT of PARENT_ID,
+                        RIGHT to RIGHT of PARENT_ID,
+                        BOTTOM to TOP of bottomNav
+                    )
+                }
+
+                bottomNav {
+                    connect(
+                        LEFT to LEFT of PARENT_ID,
+                        RIGHT to RIGHT of PARENT_ID,
+                        BOTTOM to BOTTOM of PARENT_ID
+                    )
+                }
             }
         }
     }.view
